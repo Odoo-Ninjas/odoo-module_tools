@@ -4,8 +4,9 @@ from odoo import _, api, fields, models, SUPERUSER_ID
 from odoo.exceptions import UserError, RedirectWarning, ValidationError
 from odoo.osv import expression
 
+
 class MixinValidNow(models.AbstractModel):
-    _name = 'mixin.valid_now'
+    _name = "mixin.valid_now"
     _description = "Valid Now Mixin"
 
     """
@@ -36,43 +37,50 @@ class MixinValidNow(models.AbstractModel):
             return True
 
     def mixin_valid_now_search(self, operator, value, f1, f2):
-        supported = ['=', '!=']
-        assert operator in supported, 'only {} supported'.format(supported)
+        supported = ["=", "!="]
+        assert operator in supported, "only {} supported".format(supported)
         if operator == "!=":
-            operator = '='
+            operator = "="
             value = not value
 
         d = datetime.utcnow().strftime("%Y-%m-%d")
 
-        if operator == '=':
+        if operator == "=":
             if value:
-                return expression.OR([
-                    expression.AND([[(f1, '=', False)], [(f2, '=', False)]]),
-                    expression.AND([[(f1, '<=', d)], [(f2, '>=', d)]]),
-                    expression.AND([[(f1, '<=', d)], [(f2, '=', False)]]),
-                    expression.AND([[(f1, '=', False)], [(f2, '>=', False)]]),
-                ])
+                return expression.OR(
+                    [
+                        expression.AND([[(f1, "=", False)], [(f2, "=", False)]]),
+                        expression.AND([[(f1, "<=", d)], [(f2, ">=", d)]]),
+                        expression.AND([[(f1, "<=", d)], [(f2, "=", False)]]),
+                        expression.AND([[(f1, "=", False)], [(f2, ">=", False)]]),
+                    ]
+                )
             else:
-                return expression.OR([
-                    [(f1, '>', d)],
-                    [(f2, '<', d)],
-                ])
+                return expression.OR(
+                    [
+                        [(f1, ">", d)],
+                        [(f2, "<", d)],
+                    ]
+                )
         raise Exception("not impl")
 
-class ComputeModel(models.AbstractModel):
-    _name = 'model.mixin'
-    model = fields.Char(string='Model')
-    model_id = fields.Many2one('ir.model', compute='compute_model', string='Model')
 
-    @api.depends('model')
+class ComputeModel(models.AbstractModel):
+    _name = "model.mixin"
+    model = fields.Char(string="Model")
+    model_id = fields.Many2one("ir.model", compute="compute_model", string="Model")
+
+    @api.depends("model")
     def compute_model(self):
         for self in self:
             if self.model:
-                model_id = self.env['ir.model'].search([('model', '=', self.model)], limit=1)
+                model_id = self.env["ir.model"].search(
+                    [("model", "=", self.model)], limit=1
+                )
                 self.model_id = model_id
 
     @api.model
     def default_get(self, fields):
         res = super(ComputeModel, self).default_get(fields)
-        res['model'] = self._name
+        res["model"] = self._name
         return res
