@@ -6,6 +6,7 @@ from odoo.osv import expression
 
 class MixinValidNow(models.AbstractModel):
     _name = 'mixin.valid_now'
+    _description = "Valid Now Mixin"
 
     """
 
