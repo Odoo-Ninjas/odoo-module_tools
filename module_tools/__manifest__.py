@@ -5,6 +5,7 @@
     "author": "Marc Wimmer",
     "category": "Tools",
     "depends": ["base"],
+    "license": "MIT",
     "external_dependencies": {
         "python": ["arrow"],
     },
