@@ -12,4 +12,5 @@
     "update_xml": [],
     "installable": True,
     "active": False,
+    "license": "MIT",
 }
