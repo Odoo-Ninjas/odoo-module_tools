@@ -24,6 +24,7 @@ from odoo.exceptions import UserError, RedirectWarning, ValidationError, AccessE
 
 class DummyModel(models.Model):
     _name = 'unit_test.tools.fields_compare'
+    _description = "Zync Unit Test Fields Compare"
 
     char1 = fields.Char()
     int1 = fields.Integer()
@@ -32,6 +33,7 @@ class DummyModel(models.Model):
 
 class DummyModelSub(models.Model):
     _name = 'unit_test.tools.fields_compare.sub_model'
+    _description = "Zync Unit Test Sub Model"
 
     parent_id = fields.Many2one('unit_test.tools.fields_compare')
     char1 = fields.Char()
