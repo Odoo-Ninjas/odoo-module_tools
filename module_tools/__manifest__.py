@@ -11,5 +11,5 @@
     "update_xml": [],
     "installable": True,
     "active": False,
-    "license": "MIT",
+    "license": "LGPL-3",
 }
