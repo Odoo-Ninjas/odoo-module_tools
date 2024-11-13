@@ -5,7 +5,7 @@ from decimal import Decimal
 def float_is_same(f1, f2, precision_rounding=None, tolerance=None):
     f = list(map(Decimal, [f1, f2]))
     if precision_rounding:
-        digits = len(str(Decimal(str(precision_rounding))).split(".")[1])
+        digits = len(str(1/precision_rounding).split(".")[0]) - 1
         f = list(map(lambda x: round(x, digits), f))
     s = [str(f1), str(f2)]
 
