@@ -281,7 +281,7 @@ def timediff(t1, t2, unit="hours"):
     if unit == "hours":
         return float(delta_ms) / 3600.0 / 1000.0
     else:
-        raise Exception("not implemented unit: %s" % unit)
+        raise NotImplementedError("not implemented unit: %s" % unit)
 
 
 def datetime2str(time, date_format=False):
@@ -289,7 +289,7 @@ def datetime2str(time, date_format=False):
         return None
     if isinstance(time, str):
         if len(time) != 10:
-            raise Exception("Invalid datetime: {}".format(time))
+            raise Exception(f"Invalid datetime: {time}")
         return time
     if not date_format:
         return time.strftime("%Y-%m-%d %H:%M:%S")
@@ -315,9 +315,9 @@ def date_in_range(date, start, end):
         raise Exception("date is not given - cannot determine range")
 
     if not start:
-        start = "1980-01-01"
+        start =         datetime.min.strftime("%Y-%m-%d")
     if not end:
-        end = "2100-12-31"
+        end =         datetime.max.strftime("%Y-%m-%d")
 
     return date >= start and date <= end
 
@@ -340,9 +340,9 @@ def datetime_in_range(date, start, end):
         raise Exception("date is not given - cannot determine range")
 
     if not start:
-        start = "1980-01-01"
+        start =         datetime.min.strftime("%Y-%m-%d")
     if not end:
-        end = "2100-12-31"
+        end =         datetime.max.strftime("%Y-%m-%d")
 
     return date >= start and date <= end
 
