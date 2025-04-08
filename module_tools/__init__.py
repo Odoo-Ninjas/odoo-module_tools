@@ -11,7 +11,6 @@ from .stringtools import *
 from .makotools import *
 from .pdftools import *
 from .fieldstools import *
-from .tests import *
 from .modeldata import *
 from .jsontools import *
 from .floattools import *
