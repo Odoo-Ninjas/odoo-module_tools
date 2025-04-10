@@ -69,7 +69,7 @@ class ComputeModel(models.AbstractModel):
     _name = "model.mixin"
     _description = "Model as Field Mixin"
     model = fields.Char(string="Model")
-    model_id = fields.Many2one("ir.model", compute="_compute_model", string="Model")
+    model_id = fields.Many2one("ir.model", compute="_compute_model", string="Related Model")
 
     @api.depends("model")
     def _compute_model(self):
